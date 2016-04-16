@@ -6,6 +6,8 @@ Playing with [Software Carpentry at UCSB](http://remi-daigle.github.io/2016-04-1
 
 ## Introduction
 
+TEST from rstudio
+
 This repository demonstrates **software** and _formats_:
 
 1. **Git**
