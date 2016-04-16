@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "---\ntitle: \"viz\"\nauthor: \"Abigail Dan\"\ndate: \"April 16, 2016\"\noutput: html_document\n---\n\n```{r setup, include=FALSE}\nknitr::opts_chunk$set(echo = TRUE)\n```\n## Scatterplot\n\n```{r load, results= 'hide', echo=TRUE, eval=TRUE}\n\nlibrary(dplyr)\nlibrary(ggplot2) # install.packages('ggplot2')\nlibrary(gapminder)\n\n# preview data\ngapminder\n\n# get range of available data\nsummary(gapminder)\n\n\n```\n```{r}\n# setup dataframe\ng = gapminder %>%\n  filter(year==2007) %>%   # most recent year \n  mutate(pop_m = pop/1e6)  # population, millions\n\n# plot scatterplot of most recent year \ns = ggplot(g, aes(x=gdpPercap, y=lifeExp)) +\n  geom_point()\ns\n\ns + geom_smooth()\n\n\n# add aesthetic of size by population\ns = s + \n  aes(size=pop_m)\ns\n\n# add aesthetic of color by continent\ns = s + \n  aes(color=continent)\ns\nggsave('hans.png')\n\n# add title, update axes labels\ns = s + \n  ggtitle('Health & Wealth of Nations for 2007') +\n  xlab('GDP per capita ($/year)') +\n  ylab('Life expectancy (years)')\ns\n\n# label legend\ns = s + \n  scale_colour_discrete(name='Continent') +\n  scale_size_continuous(name='Population (M)')\ns\n```\n",
+    "created" : 1460841696461.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2019551285",
+    "id" : "EF982A67",
+    "lastKnownWriteTime" : 1460844002,
+    "last_content_update" : 1460844002772,
+    "path" : "~/Desktop/2016-04-15-UCSB/my-project/viz.Rmd",
+    "project_path" : "viz.Rmd",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

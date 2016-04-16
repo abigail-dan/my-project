@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "---\ntitle: \"Gapminder Analysis with dplyr\"\nauthor: \"Abigail Dan\"\ndate: \"April 16, 2016\"\noutput: html_document\n---\n\n```{r setup, include=FALSE}\nknitr::opts_chunk$set(echo = TRUE)\n```\n\n## R Markdown\n\nThis is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.\n\nWhen you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:\n\n## Load dplyr\n\n```{r}\n\n##install.packages(\"dplyr\") # do this only once!\nlibrary(dplyr) # do this every time I restart R and need dplyr!\n\n```\n\n## Load gapminder\n\nYou can also embed plots, for example:\n\n```{r pressure, echo=FALSE}\n# install gapminder data\nlibrary(gapminder) #install.packages('gapminder') # do this only once!\nstr(gapminder)\n\n```\n\n## Exploration with gapminder\n\n```{r}\n# simple filter\nfilter(gapminder, lifeExp < 29)\nfilter(gapminder, country == \"Rwanda\")\na <- filter(gapminder, country %in% c(\"Rwanda\", \"Afghanistan\"))\n\n## compare without dplyr\ngapminder[gapminder$lifeExp < 29, ]\n\n# the pipe operator! %>%  (use command+shift+m on Mac or cntl+shift+map on PC)\n## the %>%  or \"then\" or pipe operator takes whatever stuff is on the left and\n## and passes it to the right as the first argument in the next stuff...the dataframe\n## gets continuously changed and passed\n# %>% is originally from magrittr package\n\ngapminder %>% head\nhead(gapminder) #same as\n\ngapminder %>% head(3)\nhead(gapminder, 3)\n\n## subset with select()\nselect(gapminder, year, lifeExp)\ngapminder %>% \n  select(year,lifeExp) %>% \n  head(4)\n\n## mean gdp of Cambodia\ngapminder %>% \n  filter(country == \"Cambodia\") %>% \n  select(country, year, pop, gdpPercap)\n\ngapminder %>% \n  filter(country == \"Cambodia\") %>% \n  select(-continent, -lifeExp) ## - means \"not\" this thing\n\n#compare to base R\ngapminder[gapminder$country ==\"Cambodia\", c(\"country\", \"year\", \"pop\", \"gdpPercap\")]\n\n# continue with mutate\ngapminder %>% \n  mutate(gdp = pop * gdpPercap)\n\n# exercise: add mutate to previous analysis\n\ngapminder %>% \n  filter(country == \"Cambodia\") %>% \n  select(-continent, -lifeExp) %>% \n  mutate(gdp = pop * gdpPercap) %>% \n  group_by(country) %>% \n  summarise(mean_gdp = mean(gdp)) %>% \n  ungroup() # always ungroup if you group!\n\n## with a for loop, for(country in all_countries){our analysis}\n\ngapminder %>% \n  #filter(country == \"Cambodia\") %>% \n  select(-continent, -lifeExp) %>% \n  mutate(gdp = pop * gdpPercap) %>% \n  group_by(country) %>% \n  summarise(mean_gdp = mean(gdp)) %>% \n  ungroup() # always ungroup if you group!\n\n\n\n```\n\nNote that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.\n",
+    "created" : 1460837695104.000,
+    "dirty" : true,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1606923195",
+    "id" : "ECE2B20A",
+    "lastKnownWriteTime" : 1460840759,
+    "last_content_update" : 1460842088646,
+    "path" : "~/Desktop/2016-04-15-UCSB/my-project/gapminder-dplyr.Rmd",
+    "project_path" : "gapminder-dplyr.Rmd",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}
